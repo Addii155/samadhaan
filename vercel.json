@@ -1,13 +1,5 @@
 {
-    "projects": {
-      "backend": {
-        "src": "backend",
-        "use": "@vercel/node",
-        "config": {
-          "includeFiles": ["config/**", "routes/**", "models/**"]
-        }
-      }
-    },
+    "version": 2,
     "builds": [
       {
         "src": "backend/server.js",
