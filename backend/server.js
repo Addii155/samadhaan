@@ -4,6 +4,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
+const MongoStore = require("connect-mongo");
 
 const app = express();
 connectDB();
@@ -13,10 +14,16 @@ app.use(
   session({
     secret: "samadhanSecret",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: "mongodb+srv://aditysgoyal11:aditya1852004@cluster0.77vklin.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", // Your MongoDB Atlas URI
+      collectionName: "sessions",
+    }),
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+    },
   })
 );
-
 // Serve frontend static files
 app.use(express.static(path.join(__dirname, "../frontend")));
 
